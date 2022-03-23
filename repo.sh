@@ -55,6 +55,7 @@ EOF
 cd argo-cd
 git config --global user.name "Muhammad Asim"
 git config --global user.email "info@cloudgeeks.ca"
+git add dev/deployment.yaml
 git commit -m "TAG Updated"
 git push origin master
 # End
