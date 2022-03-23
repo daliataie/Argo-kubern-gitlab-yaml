@@ -50,7 +50,7 @@ deploy-to-application-repo:
     - aws --version
     - aws s3 cp $BUCKET/repo.sh .
     - chmod +x repo.sh
-    - ./repo.sh
+    - source repo.sh
     - echo "Deploy to Kubernetes"
   only:
     - main
