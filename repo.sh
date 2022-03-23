@@ -7,16 +7,17 @@ aws --version
 
 IMAGE="448051883053.dkr.ecr.us-east-1.amazonaws.com/cloudgeeks-app"
 BUCKET="s3://cloudgeek-terraform"
+GIT_REPO="git@github.com:quickbooks2018/argo-cd.git"
 
 aws s3 cp $BUCKET/TAG .
 TAG=$(cat TAG)
 
 export $IMAGE
 export $TAG
-
+export $GIT_REPO
 
 mkdir -p /root/.ssh
-aws s3 cp s3://cloudgeeks-terraform/id_rsa .
+aws s3 cp $BUCKET/id_rsa .
 mv id_rsa /root/.ssh/id_rsa
 chmod 0400 /root/.ssh/id_rsa
 whoami
@@ -25,7 +26,7 @@ pwd
 ls /root/.ssh
 cat /root/.ssh/id_rsa echo "Cloning my Kubernetes Application k8 Manifests Repo"
 ssh-keygen -F github.com || ssh-keyscan github.com > ~/.ssh/known_hosts
-git clone git@github.com:quickbooks2018/argo-cd.git
+git clone $GIT_REPO
 ls argo-cd
 
 cat << EOF > argo-cd/dev/deployment.yaml
@@ -59,5 +60,4 @@ git config --global user.name "Muhammad Asim"
 git config --global user.email "info@cloudgeeks.ca"
 git commit -m "TAG Updated"
 git push origin master
-
 # End
