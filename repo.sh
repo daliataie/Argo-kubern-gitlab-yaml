@@ -1,0 +1,61 @@
+#!/bin/sh
+set -x
+
+IMAGE="448051883053.dkr.ecr.us-east-1.amazonaws.com/cloudgeeks-app"
+BUCKET="s3://cloudgeeks-terraform"
+
+aws s3 cp $BUCKET/TAG .
+TAG=$(cat TAG)
+
+export $IMAGE
+export $TAG
+
+echo "AWSCLI Installation"
+apk add --no-cache git openssh-client python3 py3-pip && pip3 install --upgrade pip && pip3 install --no-cache-dir awscli && rm -rf /var/cache/apk/*
+aws --version
+mkdir -p /root/.ssh
+aws s3 cp s3://cloudgeeks-terraform/id_rsa .
+mv id_rsa /root/.ssh/id_rsa
+chmod 0400 /root/.ssh/id_rsa
+whoami
+ls
+pwd
+ls /root/.ssh
+cat /root/.ssh/id_rsa echo "Cloning my Kubernetes Application k8 Manifests Repo"
+ssh-keygen -F github.com || ssh-keyscan github.com > ~/.ssh/known_hosts
+git clone git@github.com:quickbooks2018/argo-cd.git
+ls argo-cd
+
+cat << EOF > argo-cd/dev/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudgeeks-app
+  labels:
+    app: cloudgeeks-app
+    tier: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cloudgeeks-app
+  template:
+    metadata:
+      labels:
+        app: cloudgeeks-app
+        tier: frontend
+    spec:
+      containers:
+        - name: cloudgeeks-app
+          image: $IMAGE:$TAG
+          ports:
+            - containerPort: 80
+EOF
+
+cd argo-cd
+git config --global user.name "Muhammad Asim"
+git config --global user.email "info@cloudgeeks.ca"
+git commit -m "TAG Updated"
+git push origin master
+
+# End
