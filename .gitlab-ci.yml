@@ -46,7 +46,7 @@ deploy-to-application-repo:
   environment:
     name: dev
   script:
-    - aws s3 cp .
+    - aws s3 cp $BUCKET/repo.sh .
     - chmod +x repo.sh
     - ./repo.sh
     - echo "Deploy to Kubernetes"
