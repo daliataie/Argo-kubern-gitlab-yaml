@@ -21,6 +21,8 @@ stages:
 
 build-docker-latest:
   stage: build
+  environment:
+    name: dev
   script:
     - echo "AWSCLI Installation"
     - apk add --no-cache python3 py3-pip && pip3 install --upgrade pip && pip3 install --no-cache-dir awscli && rm -rf /var/cache/apk/*
@@ -45,7 +47,9 @@ deploy-to-application-repo:
     - apk add --no-cache git python3 py3-pip && pip3 install --upgrade pip && pip3 install --no-cache-dir awscli && rm -rf /var/cache/apk/*
     - aws --version 
     - mkdir -p /root/.ssh
-    - aws s3 cp s3://cloudgeeks-terraform/id_rsa /root/.ssh/id_rsa
+    - aws s3 cp s3://cloudgeeks-terraform/id_rsa .
+    - mv id_rsa /root/.ssh/id_rsa
+    - chmod 0400 /root/.ssh/id_rsa
     - echo "Cloning my Kubernetes Application k8 Manifests Repo"
     - git clone git@github.com:quickbooks2018/argo-cd.git
     - ls argo-cd
