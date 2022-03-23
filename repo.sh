@@ -12,9 +12,6 @@ GIT_REPO="git@github.com:quickbooks2018/argo-cd.git"
 aws s3 cp $BUCKET/TAG .
 TAG=$(cat TAG)
 
-export $IMAGE
-export $TAG
-export $GIT_REPO
 
 mkdir -p /root/.ssh
 aws s3 cp $BUCKET/id_rsa .
