@@ -1,6 +1,10 @@
 #!/bin/sh
 set -x
 
+echo "AWSCLI Installation"
+apk add --no-cache git openssh-client python3 py3-pip && pip3 install --upgrade pip && pip3 install --no-cache-dir awscli && rm -rf /var/cache/apk/*
+aws --version
+
 IMAGE="448051883053.dkr.ecr.us-east-1.amazonaws.com/cloudgeeks-app"
 BUCKET="s3://cloudgeeks-terraform"
 
@@ -10,9 +14,7 @@ TAG=$(cat TAG)
 export $IMAGE
 export $TAG
 
-echo "AWSCLI Installation"
-apk add --no-cache git openssh-client python3 py3-pip && pip3 install --upgrade pip && pip3 install --no-cache-dir awscli && rm -rf /var/cache/apk/*
-aws --version
+
 mkdir -p /root/.ssh
 aws s3 cp s3://cloudgeeks-terraform/id_rsa .
 mv id_rsa /root/.ssh/id_rsa
