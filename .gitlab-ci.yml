@@ -22,10 +22,6 @@ stages:
 build-docker-latest:
   stage: build
   script:
-    - echo "AWSCLI Installation"
-    - apk add --no-cache python3 py3-pip && pip3 install --upgrade pip && pip3 install --no-cache-dir awscli && rm -rf /var/cache/apk/*
-    - aws --version 
-    - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 448051883053.dkr.ecr.us-east-1.amazonaws.com
     - docker build -t $DOCKER_IMAGE:$TAG $DOCKERFILE_LOCATION
   only:
     - main
@@ -41,6 +37,10 @@ push-to-ecr:
     name: dev
   script:
     - echo "Pushing to ECR"
+    - echo "AWSCLI Installation"
+    - apk add --no-cache python3 py3-pip && pip3 install --upgrade pip && pip3 install --no-cache-dir awscli && rm -rf /var/cache/apk/*
+    - aws --version 
+    - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 448051883053.dkr.ecr.us-east-1.amazonaws.com
     - docker push $DOCKER_IMAGE:$TAG
   only:
     - main
