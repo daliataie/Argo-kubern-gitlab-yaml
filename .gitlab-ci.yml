@@ -20,6 +20,7 @@ stages:
 build-docker-latest:
   stage: build
   script:
+    - echo "AWSCLI Installation"
     - apk add --no-cache python3 py3-pip && pip3 install --upgrade pip && pip3 install --no-cache-dir awscli
     - aws --version 
     - docker login -u argocd -p $CI_BUILD_TOKEN registry.gitlab.com
