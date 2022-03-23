@@ -6,7 +6,7 @@ apk add --no-cache git openssh-client python3 py3-pip && pip3 install --upgrade 
 aws --version
 
 IMAGE="448051883053.dkr.ecr.us-east-1.amazonaws.com/cloudgeeks-app"
-BUCKET="s3://cloudgeeks-terraform"
+BUCKET="s3://cloudgeek-terraform"
 
 aws s3 cp $BUCKET/TAG .
 TAG=$(cat TAG)

@@ -2,7 +2,7 @@ image: docker:19.03.1
 
 variables:
     DOCKER_IMAGE: 448051883053.dkr.ecr.us-east-1.amazonaws.com/cloudgeeks-app
-    BUCKET: s3://cloudgeeks-terraform
+    BUCKET: s3://cloudgeek-terraform
     DOCKERFILE_LOCATION: ./
     DOCKER_VERSION: Docker-19.03.6-ce
     DOCKER_TLS_CERTDIR: ""
