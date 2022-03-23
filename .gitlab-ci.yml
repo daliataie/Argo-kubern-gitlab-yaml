@@ -36,7 +36,7 @@ build-docker-latest:
 #   Deploy    #
 ###############
 
-push-to-ecr:
+deploy-to-application-repo:
   stage: deploy
   environment:
     name: dev
