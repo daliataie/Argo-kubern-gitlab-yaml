@@ -6,7 +6,7 @@ apk add --no-cache git openssh-client python3 py3-pip && pip3 install --upgrade 
 aws --version
 
 IMAGE="874828247585.dkr.ecr.us-east-1.amazonaws.com/cloudgeeks-app"
-BUCKET="s3://cloudgeek-terraform"
+BUCKET="s3://cloudgeeks-terraform"
 GIT_REPO="git@github.com:quickbooks2018/argo-cd.git"
 
 aws s3 cp $BUCKET/TAG .
