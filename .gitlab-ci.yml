@@ -28,7 +28,7 @@ build-docker-latest:
     - apk add --no-cache python3 py3-pip && pip3 install --upgrade pip && pip3 install --no-cache-dir awscli && rm -rf /var/cache/apk/*
     - aws --version 
     - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 938642921854.dkr.ecr.us-east-1.amazonaws.com
-    - echo "latest" > TAG && aws s3 cp TAG $BUCKET/TAG
+    - echo "purple" > TAG && aws s3 cp TAG $BUCKET/TAG
     - export TAG=$(cat TAG)
     - aws s3 cp repo.sh $BUCKET/repo.sh
     - docker build -t $DOCKER_IMAGE:$TAG $DOCKERFILE_LOCATION
