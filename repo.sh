@@ -5,7 +5,7 @@ echo "AWSCLI Installation"
 apk add --no-cache git openssh-client python3 py3-pip && pip3 install --upgrade pip && pip3 install --no-cache-dir awscli && rm -rf /var/cache/apk/*
 aws --version
 
-IMAGE="874828247585.dkr.ecr.us-east-1.amazonaws.com/cloudgeeks-app"
+IMAGE="938642921854.dkr.ecr.us-east-1.amazonaws.com/cloudgeeks-app"
 BUCKET="s3://cloudgeeks-terraform"
 GIT_REPO="git@github.com:quickbooks2018/argo-cd.git"
 
